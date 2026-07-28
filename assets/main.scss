@@ -1,0 +1,624 @@
+---
+# Front matter (even empty) is what tells Jekyll to compile this file.
+---
+
+// ===========================================================================
+// FreyLab.systems
+//
+// Dark, iOS-flavoured surfaces. Coral-red accent. Serif prose.
+//
+// Minima declares its variables `!default`, so whatever we set FIRST wins.
+// All overrides must appear ABOVE the `@import "minima"` line.
+// Fonts are loaded in _includes/head.html.
+// ===========================================================================
+
+// --- Surfaces --------------------------------------------------------------
+// iOS dark mode is not black. It is layered charcoal with a cool cast, which
+// is what lets raised elements read as raised. Pure #000 flattens everything.
+$background-color: #18181b; // page
+$surface-color:    #232327; // raised: code blocks, quotes, table headers
+$surface-high:     #2c2c31; // raised twice: hover states
+$border-color:     #33333a;
+
+$text-color:       #f2f2f5; // iOS label-on-dark; softer than #fff
+$grey-color:       #98989f; // iOS secondary label — metadata, captions
+$grey-color-light: #33333a; // Minima uses this for rules and borders
+$grey-color-dark:  #7c7c85;
+
+// --- Accent ----------------------------------------------------------------
+// Pulled toward coral. Keeps the red read at a fraction of the aggression,
+// and matches how iOS lightens its system colours for dark mode.
+// Two reds, doing two different jobs:
+//   $brand-color — thin things on dark: links, rules, hover. Coral, so a page
+//                  of links doesn't fatigue the eye.
+//   $brand-block — solid panels with white text ON them. Deeper, because white
+//                  on #ff6b6b fails contrast; white on #e63946 passes.
+$brand-color:      #ff6b6b;
+$brand-block:      #e63946;
+$brand-soft:       #ff9494;
+$brand-dim:        #c85454;
+$brand-glow:       rgba(255, 107, 107, 0.16);
+
+// --- Type ------------------------------------------------------------------
+// Serif prose is the strongest available signal that a person wrote this.
+// Mono carries the technical register on metadata and code. Sans appears only
+// in the nav, where three words are too small to have a personality anyway.
+$serif-font-family: "Source Serif 4", Charter, "Bitstream Charter",
+                    "Iowan Old Style", Georgia, serif;
+$mono-font-family:  "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
+                    Consolas, monospace;
+$sans-font-family:  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+
+$base-font-family: $serif-font-family;
+$base-font-size:   18px;  // serif needs slightly more size than sans
+$base-line-height: 1.7;   // and more air between lines
+$spacing-unit:     34px;
+$content-width:    720px; // ~70 characters per line at this size
+
+// Corner radius is where the two references disagree: iOS is round, the
+// editorial reference is hard-edged. 4px splits it — soft enough not to feel
+// brutalist, sharp enough that red blocks read as graphic panels.
+$radius:      4px;
+$radius-sm:   3px;
+
+@import "minima";
+
+// ===========================================================================
+// Layered on top of the compiled theme.
+// ===========================================================================
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+::selection {
+  background: $brand-glow;
+  color: #fff;
+}
+
+// --- Links -----------------------------------------------------------------
+a {
+  color: $brand-color;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 107, 107, 0.32);
+  transition: border-color 140ms ease, color 140ms ease;
+
+  &:visited { color: $brand-color; }
+
+  &:hover {
+    color: $brand-soft;
+    border-bottom-color: $brand-soft;
+    text-decoration: none;
+  }
+}
+
+// --- Header ----------------------------------------------------------------
+// Translucent and blurred, the way an iOS nav bar behaves over scrolling
+// content. The red hairline is the only loud element on the page.
+.site-header {
+  border-top: 2px solid $brand-color;
+  border-bottom: 1px solid $border-color;
+  background: rgba(24, 24, 27, 0.82);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.site-title,
+.site-title:visited {
+  font-family: $serif-font-family;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: $text-color;
+  border-bottom: none;
+
+  &:hover { color: $brand-color; }
+}
+
+.site-nav {
+  .page-link,
+  .page-link:visited {
+    font-family: $sans-font-family;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: $grey-color;
+    border-bottom: none;
+
+    &:hover { color: $brand-color; }
+  }
+
+  @media screen and (max-width: 600px) {
+    background: $surface-color;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+
+    .menu-icon > svg path { fill: $grey-color; }
+  }
+}
+
+// --- Headings --------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: $serif-font-family;
+  color: #fafafc;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+
+h2 {
+  margin-top: $spacing-unit * 1.35;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $border-color;
+
+  // A short coral rule sitting on the hairline — structure you feel first.
+  &::after {
+    content: "";
+    display: block;
+    width: 38px;
+    height: 2px;
+    border-radius: 2px;
+    background: $brand-color;
+    position: relative;
+    top: 9px;
+  }
+}
+
+h3 { margin-top: $spacing-unit; }
+
+// --- Post list -------------------------------------------------------------
+.post-list {
+  > li {
+    padding-bottom: $spacing-unit;
+    margin-bottom: $spacing-unit;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  h3 { margin-top: 0; margin-bottom: 6px; }
+
+  .post-link {
+    color: $text-color;
+    border-bottom: none;
+    font-weight: 700;
+
+    &:hover { color: $brand-color; }
+  }
+}
+
+// Metadata is the one place the technical register shows up in the type.
+.post-meta {
+  font-family: $mono-font-family;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: $grey-color;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+// --- Post page -------------------------------------------------------------
+.post-title {
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.post-content {
+  img {
+    max-width: 100%;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+  }
+
+  ul, ol { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+}
+
+// --- Quotes ----------------------------------------------------------------
+blockquote {
+  color: #c9c9d1;
+  background: $surface-color;
+  border-left: 3px solid $brand-color;
+  border-radius: 0 $radius $radius 0;
+  padding: 16px 20px;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+// --- Code ------------------------------------------------------------------
+code, pre {
+  font-family: $mono-font-family;
+  font-size: 14.5px;
+  border-color: $border-color;
+}
+
+code {
+  background: $surface-color;
+  color: $brand-soft;
+  padding: 2px 7px;
+  border-radius: $radius-sm - 2;
+  border: 1px solid $border-color;
+}
+
+pre {
+  background: $surface-color;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  padding: 16px 18px;
+  line-height: 1.55;
+  overflow-x: auto;
+
+  > code {
+    background: none;
+    border: none;
+    color: $text-color;
+    padding: 0;
+  }
+}
+
+// Minima ships light-theme syntax colours. These are unreadable on a dark
+// surface, so the whole set is re-pointed at a muted dark palette — desaturated
+// on purpose, so code doesn't out-shout the prose.
+.highlight {
+  background: $surface-color;
+  border-radius: $radius;
+
+  .c, .cm, .c1, .cs   { color: #7c7c85; font-style: italic; } // comments
+  .k, .kd, .kn, .kr, .kt { color: #ff8fa3; }                  // keywords
+  .s, .s1, .s2, .sb, .sd, .se, .sh, .si, .sx { color: #a8d99b; } // strings
+  .m, .mf, .mh, .mi, .mo, .il { color: #e0b57e; }             // numbers
+  .nf, .nb            { color: #8bb9f0; }                     // functions
+  .nt                 { color: $brand-color; }                // html tags
+  .na                 { color: #e0b57e; }                     // attributes
+  .o, .ow             { color: $text-color; }                 // operators
+  .err                { color: #fff; background: $brand-dim; }
+}
+
+// --- Tables ----------------------------------------------------------------
+table {
+  border-color: $border-color;
+  border-radius: $radius;
+  overflow: hidden;
+  color: $text-color;
+
+  th {
+    background: $surface-color;
+    border-color: $border-color;
+    font-family: $mono-font-family;
+    font-size: 12.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $text-color;
+  }
+
+  td { border-color: $border-color; }
+  tr:nth-child(even) { background: rgba(255, 255, 255, 0.025); }
+  tr:hover { background: $surface-high; }
+}
+
+// ===========================================================================
+// Editorial layer — the ideas borrowed from the red/black news-layout
+// reference. Red arrives as BLOCKS at structural moments, not as more accent
+// scattered through the prose. Long technical posts still need a calm page.
+// ===========================================================================
+
+// --- Masthead --------------------------------------------------------------
+// The single largest red element on the site, and the only one above the fold.
+.masthead {
+  background: $brand-block;
+  color: #fff;
+  padding: $spacing-unit * 1.15 $spacing-unit;
+  margin: $spacing-unit 0 $spacing-unit * 1.4;
+  border-radius: $radius;
+}
+
+// No text-transform here on purpose — the tags are written with intentional
+// casing (#Homelab, #AI, #DA), and uppercasing them throws that away.
+.masthead__kicker {
+  font-family: $mono-font-family;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 10px;
+}
+
+.masthead__title {
+  color: #fff;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin-bottom: 12px;
+
+  @include media-query($on-palm) { font-size: 32px; }
+}
+
+.masthead__blurb {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 46em;
+  margin-bottom: 0;
+}
+
+// --- Latest post (rendered in full on the home page) -----------------------
+.latest {
+  padding-bottom: $spacing-unit * 1.2;
+  margin-bottom: $spacing-unit * 0.6;
+  border-bottom: 1px solid $border-color;
+}
+
+.latest__title {
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin: 6px 0 20px;
+  padding-bottom: 0;
+  border-bottom: none;
+
+  &::after { display: none; } // cancel the h2 red rule here
+
+  .post-link {
+    color: $text-color;
+    border-bottom: none;
+    &:hover { color: $brand-color; }
+  }
+
+  @include media-query($on-palm) { font-size: 27px; }
+}
+
+// --- Red button ------------------------------------------------------------
+.btn-red {
+  display: inline-block;
+  background: $brand-block;
+  color: #fff;
+  border: none;
+  border-radius: $radius;
+  padding: 10px 18px;
+  font-family: $sans-font-family;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 140ms ease, transform 140ms ease;
+
+  &:visited { color: #fff; }
+
+  &:hover {
+    background: #f04352;
+    color: #fff;
+    border: none;
+    transform: translateY(-1px);
+  }
+}
+
+// --- The edit block --------------------------------------------------------
+// A recurring on-page component for showing an edit being made: what was
+// written, what got called out, what replaced it, and — the part that matters —
+// whether it was accepted or rejected.
+//
+// Markup lives in _includes/edit.html; usage examples are documented there.
+// (Deliberately no Liquid tag written out here: this file carries front matter,
+// so Jekyll runs Liquid over it and would try to EXECUTE an example include.)
+//
+.edit {
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  background: rgba(255, 255, 255, 0.015);
+  margin: $spacing-unit 0;
+  overflow: hidden;
+}
+
+.edit__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid $border-color;
+  background: $surface-color;
+  font-family: $mono-font-family;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $grey-color;
+}
+
+// Accepted and rejected must look different at a glance. A page of edits that
+// were all accepted is an advertisement; the rejections are what make it honest.
+.edit__verdict {
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 3px;
+
+  &--accepted { background: rgba(122, 196, 122, 0.16); color: #8ed08e; }
+  &--rejected { background: rgba(255, 107, 107, 0.16); color: $brand-color; }
+}
+
+.edit__note {
+  padding: 14px 16px;
+  border-bottom: 1px solid $border-color;
+  color: #c9c9d1;
+  font-size: 16px;
+  line-height: 1.55;
+
+  strong { color: $text-color; }
+}
+
+.edit__line {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 15.5px;
+  line-height: 1.55;
+
+  & + .edit__line { border-top: 1px solid $border-color; }
+}
+
+.edit__marker {
+  flex: 0 0 auto;
+  font-family: $mono-font-family;
+  font-weight: 500;
+  user-select: none;
+}
+
+.edit__line--before {
+  background: rgba(255, 107, 107, 0.06);
+  color: #cfa8ab;
+
+  .edit__marker { color: $brand-color; }
+}
+
+.edit__line--after {
+  background: rgba(122, 196, 122, 0.06);
+  color: #d5e8d0;
+
+  .edit__marker { color: #8ed08e; }
+}
+
+// --- Nero's edits (collapsed disclosure) -----------------------------------
+// An add-on to a post, not a section of it. Closed by default so a reader who
+// doesn't care never sees it. Built on <details>, so no JavaScript.
+.cutting-room {
+  margin-top: $spacing-unit * 1.6;
+  border: 1px solid $border-color;
+  border-left: 3px solid $brand-color;
+  border-radius: $radius;
+  background: rgba(255, 255, 255, 0.015);
+
+  &[open] {
+    background: transparent;
+
+    .cutting-room__toggle { border-bottom: 1px solid $border-color; }
+    .cutting-room__hint::after { content: "hide"; }
+  }
+}
+
+.cutting-room__toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-family: $mono-font-family;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $grey-color;
+  transition: color 140ms ease;
+
+  &::-webkit-details-marker { display: none; } // kill the default triangle
+  &:hover { color: $text-color; }
+}
+
+.cutting-room__label { color: $text-color; font-weight: 500; }
+
+.cutting-room__count {
+  background: $brand-glow;
+  color: $brand-color;
+  border-radius: 3px;
+  padding: 1px 7px;
+  font-weight: 500;
+}
+
+// The word is supplied entirely by CSS so the open/closed states can swap it
+// without JavaScript or a second element in the markup.
+.cutting-room__hint {
+  margin-left: auto;
+  color: $brand-color;
+  font-size: 12px;
+
+  &::after { content: "show"; }
+}
+
+.cutting-room__body { padding: 4px 16px 16px; }
+
+.cutting-room__intro {
+  margin: 14px 0 6px;
+  color: $grey-color;
+  font-size: 15.5px;
+}
+
+// Inside the disclosure the blocks are already framed, so drop their own border
+// and let the container do the containing.
+.cutting-room .edit {
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  margin: 0;
+
+  & + .edit { border-top: none; }
+  &:first-of-type { border-top: none; }
+  &:last-of-type { border-bottom: none; }
+}
+
+// --- Red pull-quote --------------------------------------------------------
+// Add `{: .pull-red}` under a blockquote in markdown to turn it into a panel.
+blockquote.pull-red {
+  background: $brand-block;
+  color: #fff;
+  border-left: none;
+  border-radius: $radius;
+  padding: 20px 24px;
+  font-size: 20px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+
+  p:last-child { margin-bottom: 0; }
+}
+
+// --- Section heading on the post list --------------------------------------
+.post-list-heading {
+  font-family: $mono-font-family;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: $grey-color;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 8px;
+
+  &::after { display: none; }
+}
+
+.rss-subscribe {
+  font-family: $mono-font-family;
+  font-size: 13px;
+  color: $grey-color;
+}
+
+// --- Rules -----------------------------------------------------------------
+hr {
+  border: none;
+  height: 1px;
+  background: $border-color;
+  margin: $spacing-unit 0;
+}
+
+// --- Footer ----------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid $border-color;
+  background: $background-color;
+}
+
+.footer-heading { font-family: $serif-font-family; }
+
+.footer-col-wrapper,
+.site-footer .contact-list,
+.site-footer .social-media-list,
+.site-footer p {
+  font-family: $sans-font-family;
+  font-size: 14px;
+  color: $grey-color;
+}
+
+.svg-icon {
+  fill: $grey-color;
+  &:hover { fill: $brand-color; }
+}

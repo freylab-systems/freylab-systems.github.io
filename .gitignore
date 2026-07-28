@@ -1,14 +1,12 @@
-# Jekyll build output — regenerated on every serve/build, never committed
-_site/
-
-# Jekyll caches
-.sass-cache/
-.jekyll-cache/
+# Jekyll build output — regenerated on every build, never committed
+_site
+.sass-cache
+.jekyll-cache
 .jekyll-metadata
 
 # Bundler
-vendor/
-.bundle/
+vendor
+.bundle
 
 # Editor / OS noise
 .DS_Store

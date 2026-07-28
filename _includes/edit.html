@@ -1,0 +1,35 @@
+{%- comment -%}
+  edit.html — show a single edit as it actually happened.
+
+  Params:
+    verdict  "accepted" | "rejected"   (required)
+    note     why the change was called out (required)
+    before   the original line (required)
+    after    the proposed replacement (required)
+
+  Example:
+    {% include edit.html
+         verdict="rejected"
+         note="Suggested cutting 'Anyways' as filler. Kept it — it's how I talk."
+         before="Anyways, I'll see you in the next blog post — peace!"
+         after="I'll see you in the next post." %}
+{%- endcomment -%}
+
+<div class="edit">
+  <div class="edit__head">
+    <span class="edit__verdict edit__verdict--{{ include.verdict }}">{{ include.verdict }}</span>
+    <span>Nero · proofread</span>
+  </div>
+
+  <div class="edit__note">{{ include.note }}</div>
+
+  <div class="edit__line edit__line--before">
+    <span class="edit__marker">−</span>
+    <span>{{ include.before }}</span>
+  </div>
+
+  <div class="edit__line edit__line--after">
+    <span class="edit__marker">+</span>
+    <span>{{ include.after }}</span>
+  </div>
+</div>

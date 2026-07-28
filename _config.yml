@@ -1,0 +1,39 @@
+# FreyLab.systems — site-wide settings.
+# NOTE: this file is NOT hot-reloaded. Change it, then restart `bundle exec jekyll serve`.
+
+title: FreyLab.systems
+email: frey.system@gmail.com
+description: >-
+  Hands-on infrastructure, self-hosting, and homelab engineering — documented in
+  public. Real systems, built on Necropolis, written down honestly: what I built,
+  why, what broke, and what I learned.
+
+# baseurl is the subpath the site is served from. Empty because the repo is
+# named freylab-systems.github.io, which serves at the domain root.
+baseurl: ""
+url: "https://freylab-systems.github.io"
+
+github_username: freylab-systems
+author: Jake Frey
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Newest post first on the front page.
+paginate: 10
+
+# Keep repo-only files out of the built site.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+
+# Show post excerpts on the home page list.
+show_excerpts: true
+
+# Excerpt = everything above the <!--more--> marker in a post.
+excerpt_separator: "<!--more-->"

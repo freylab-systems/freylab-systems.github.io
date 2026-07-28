@@ -1,0 +1,52 @@
+{%- comment -%}
+  edits.html — the collapsed "what Nero suggested" disclosure at the end of a post.
+
+  Closed by default. It is an add-on to a post, not a section of it: a reader who
+  doesn't care never sees it, and a reader who does gets the whole edit history
+  in one click without leaving the page.
+
+  Built on <details>, so there is no JavaScript — it works with JS disabled and
+  keyboard-navigates for free.
+
+  Driven by the post's own front matter:
+
+    ---
+    layout: post
+    title: "Some post"
+    edits:
+      - verdict: rejected
+        note: |
+          Nero wanted an excerpt plus a Read more button. I said no.
+        before: A truncated excerpt and a button.
+        after: The whole post, inline.
+    ---
+
+  YAML block scalars (`|`) let notes run as long as they need. Nothing renders
+  if a post has no `edits:` key.
+{%- endcomment -%}
+
+{%- comment -%}
+  Defaults to the current page, but accepts an explicit post object so the home
+  layout — which renders the newest post in full — can show the same panel:
+  {% include edits.html post=latest %}
+{%- endcomment -%}
+{%- assign p = include.post | default: page -%}
+{%- if p.edits and p.edits.size > 0 -%}
+<details class="cutting-room">
+  <summary class="cutting-room__toggle">
+    <span class="cutting-room__label">Nero's edits</span>
+    <span class="cutting-room__count">{{ p.edits.size }}</span>
+    <span class="cutting-room__hint"></span>
+  </summary>
+
+  <div class="cutting-room__body">
+    <p class="cutting-room__intro">
+      {{ p.edits_intro | default: "Every edit Nero flagged on this post — including the ones I turned down." }}
+    </p>
+
+    {%- for e in p.edits -%}
+      {% include edit.html verdict=e.verdict note=e.note before=e.before after=e.after %}
+    {%- endfor -%}
+  </div>
+</details>
+{%- endif -%}

@@ -1,0 +1,63 @@
+---
+layout: default
+---
+
+<!--
+  Overrides Minima's _layouts/home.html.
+
+  The newest post renders IN FULL on the home page — no excerpt, no "read more"
+  button. Truncation plus a CTA is the magazine paywall pattern, and it costs
+  readers a click before they know whether they care.
+
+  Older posts collapse to a dated title list underneath, so the page stays
+  finite as the archive grows.
+-->
+
+<div class="home">
+
+  <section class="masthead">
+    <p class="masthead__kicker">#Homelab #AI #DA #IT #Linux</p>
+    <h1 class="masthead__title">{{ site.title }}</h1>
+    <p class="masthead__blurb">
+      I get technical — poke around, break stuff, fix it. That's how I actually
+      learn how things work. Which is also the joke behind the domain: say
+      "Frey Lab systems" out loud and you get "I fry lab systems." So watch me
+      break, make, and learn.
+    </p>
+  </section>
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+
+    {%- assign latest = site.posts.first -%}
+
+    <article class="latest">
+      <span class="post-meta">{{ latest.date | date: "%b %-d, %Y" }}</span>
+      <h2 class="latest__title">
+        <a class="post-link" href="{{ latest.url | relative_url }}">{{ latest.title | escape }}</a>
+      </h2>
+      <div class="post-content latest__body">
+        {{ latest.content }}
+      </div>
+      {%- include edits.html post=latest -%}
+    </article>
+
+    {%- if site.posts.size > 1 -%}
+      <h2 class="post-list-heading">Archive</h2>
+      <ul class="post-list">
+        {%- for post in site.posts offset:1 -%}
+        <li>
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <h3>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h3>
+        </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+  {%- endif -%}
+
+</div>
