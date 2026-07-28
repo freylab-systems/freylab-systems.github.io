@@ -1,0 +1,21 @@
+# Jekyll build output — regenerated on every serve/build, never committed
+_site/
+
+# Jekyll caches
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler
+vendor/
+.bundle/
+
+# Editor / OS noise
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Never commit secrets
+.env
+.env.*
