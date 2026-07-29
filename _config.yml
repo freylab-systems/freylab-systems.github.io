@@ -30,7 +30,9 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - RUNBOOK.md
   - vendor/
+  - projects/
 
 # Show post excerpts on the home page list.
 show_excerpts: true
