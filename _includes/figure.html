@@ -1,0 +1,25 @@
+{%- comment -%}
+  figure.html — an image with an optional caption, clickable to full size.
+
+  Params:
+    src      path under /assets/img/ (required) — e.g. "lccc-degree.jpg"
+    alt      alt text (required) — read aloud by screen readers, and shown if
+             the file fails to load. Describe what the image IS.
+    caption  optional line under the image
+
+  Usage (single line — Jekyll includes cannot span lines):
+
+    {% include figure.html src="lccc-degree.jpg" alt="Associate of Applied Science diploma from Lorain County Community College" caption="The degree. Computer engineering and digital forensics, 2019." %}
+
+  The click target is the same file at native resolution — no lightbox, no
+  JavaScript. The browser just opens the image.
+{%- endcomment -%}
+
+<figure class="fig">
+  <a class="fig__link" href="{{ '/assets/img/' | append: include.src | relative_url }}" title="Open full size">
+    <img src="{{ '/assets/img/' | append: include.src | relative_url }}" alt="{{ include.alt }}" loading="lazy">
+  </a>
+  {%- if include.caption -%}
+    <figcaption class="fig__caption">{{ include.caption }}</figcaption>
+  {%- endif -%}
+</figure>

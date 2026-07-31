@@ -53,7 +53,7 @@ I also want to get more involved with the community. My thinking is that if I sh
 
 I'm working toward my A+ certification right now.
 
-I have a two-year degree — an Associate of Applied Science from Lorain County Community College, where I majored in computer engineering and digital forensics. I picked up a few certificates from them along the way: A+ prep, Network+ prep, and Security+ prep.
+I have a two-year degree — an Associate of Applied Science from Lorain County Community College, where I majored in computer engineering and digital forensics, with honors. I picked up a few certificates from them along the way: A+ prep, Security+ prep, and a One-Year Technical certificate in the same program I majored in.
 
 I never went out and got the actual certifications. I fell off hard, got burned out, and didn't keep myself accountable.
 
@@ -63,6 +63,10 @@ Which is part of why this exists. If I say I'm working toward the certs and then
 
 I'd like to be held accountable, even if it's by nobody but myself.
 
+![lccc-degree](/assets/img/lccc-degree.jpg)
+
+![lccc-certs](/assets/img/lccc-certs.jpg)
+
 ## Nero
 
 I'm also really into AI. I know we're in the middle of the AI boom and everybody wants AI right now — but I actually have a passion for it. It's almost like a dream come true. Everybody saw what Iron Man did with Jarvis and wants to recreate it, and yeah, I have that idea too. I know we're not 100% there. But I want to work with the technology and get as close as I can.
@@ -71,7 +75,7 @@ Which brings me to my digital assistant, Nero.
 
 Nero is an AI agent I built. He helps me stay on task and proofreads my stuff — he's actually proofreading this post. He's been with me for a while now, and I've run him on a few different harnesses: [OpenClaw](https://openclaw.ai/), then [Hermes Agent](https://hermes-agent.nousresearch.com/), and now Daniel Miessler's [LifeOS](https://github.com/danielmiessler/LifeOS) (formerly PAI, if you've seen it written up under that name).
 
-LifeOS is my favorite so far. It wires the model to be more personal and to actually keep you accountable. It ships as a single self-contained skill that bundles a whole library of other skills. It's technically harness-agnostic, but Miessler builds on Claude Code so that's the best-tested path, and that's where I run it.
+LifeOS is my favorite so far. It wires the model to be more personal and to actually keep you accountable. It ships as a full system — hooks, an algorithm, a memory layer, and a library of skills. It's technically harness-agnostic, but Miessler builds on Claude Code so that's the best-tested path, and that's where I run it.
 
 I've also wired in [Fabric](https://github.com/danielmiessler/fabric) — that's a separate project of his, a big collection of really well-made prompt patterns you can adjust to your needs. It doesn't come bundled with LifeOS; I pulled the patterns into my own skills. That's been one of my favorite parts of the setup so far.
 

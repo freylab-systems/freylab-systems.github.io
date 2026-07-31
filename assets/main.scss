@@ -480,6 +480,45 @@ table {
   .edit__marker { color: #8ed08e; }
 }
 
+// --- Figures ---------------------------------------------------------------
+// Image with optional caption, wrapped in a link to the full-size file.
+// Slight lift on hover so it reads as clickable without needing an icon.
+.fig {
+  margin: $spacing-unit * 1.1 0;
+}
+
+.fig__link {
+  display: block;
+  border-bottom: none;
+  border-radius: $radius;
+  overflow: hidden;
+  line-height: 0; // kills the inline-image descender gap
+  transition: box-shadow 160ms ease, transform 160ms ease;
+
+  &:hover {
+    border-bottom: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 1px solid $border-color;
+    border-radius: $radius;
+  }
+}
+
+.fig__caption {
+  margin-top: 10px;
+  font-family: $sans-font-family;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $grey-color;
+}
+
 // --- Nero's edits (collapsed disclosure) -----------------------------------
 // An add-on to a post, not a section of it. Closed by default so a reader who
 // doesn't care never sees it. Built on <details>, so no JavaScript.

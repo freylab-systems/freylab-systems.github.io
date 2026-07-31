@@ -17,3 +17,24 @@ vendor
 # Never commit secrets
 .env
 .env.*
+
+# Never commit camera originals. Phone photos carry EXIF including GPS
+# coordinates; HEIC also doesn't render in Chrome or Firefox. Convert to a
+# stripped JPEG first:
+#   convert IN.heic -auto-orient -rotate -90 -strip -resize 1400x -quality 82 OUT.jpg
+# This rule is a backstop so `git add -A` can never publish a raw original.
+*.heic
+*.HEIC
+*.dng
+*.DNG
+
+# Personal notes. This repo is PUBLIC — every file in it is browsable on
+# github.com even when Jekyll excludes it from the built site. These live in
+# Joplin instead; they reference local paths and my other usernames.
+RUNBOOK.md
+GIT-NOTES.md
+
+# Unreviewed drafts. Kept locally; not part of the repo until I've read them
+# and decided they're mine to publish.
+projects/
+README.md
