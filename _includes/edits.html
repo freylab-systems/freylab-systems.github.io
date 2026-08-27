@@ -41,11 +41,11 @@
 
   <div class="cutting-room__body">
     <p class="cutting-room__intro">
-      {{ p.edits_intro | default: "Every edit Nero flagged on this post — including the ones I turned down." }}
+      {{ p.edits_intro | default: "Every call I flagged on this post — including the ones he turned down." }}
     </p>
 
     {%- for e in p.edits -%}
-      {% include edit.html verdict=e.verdict note=e.note before=e.before after=e.after %}
+      {% include edit.html kind=e.kind verdict=e.verdict note=e.note before=e.before after=e.after %}
     {%- endfor -%}
   </div>
 </details>

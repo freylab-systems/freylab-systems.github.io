@@ -1,35 +1,46 @@
 {%- comment -%}
-  edit.html — show a single edit as it actually happened.
+  edit.html — one entry in Nero's panel.
 
   Params:
-    verdict  "accepted" | "rejected"   (required)
-    note     why the change was called out (required)
-    before   the original line (required)
-    after    the proposed replacement (required)
+    kind     "rewrite" | "gap" | "fact-check" | "idea"   (optional)
+    verdict  "accepted" | "declined" | "rejected"        (required)
+    note     Nero's reasoning, in Nero's own voice       (required)
+    before   the line as it stood                        (optional)
+    after    the line as it ended up                     (optional)
+
+  before/after are a PAIR — the comparison renders only when both are present.
+  Entries about something MISSING from a draft have no prior line to quote, so
+  they render as reasoning alone rather than as a diff with an empty half.
+
+  No per-entry byline: the panel header already says whose edits these are, and
+  repeating it eight times is noise.
 
   Example:
     {% include edit.html
-         verdict="rejected"
-         note="Suggested cutting 'Anyways' as filler. Kept it — it's how I talk."
-         before="Anyways, I'll see you in the next blog post — peace!"
-         after="I'll see you in the next post." %}
+         kind="idea"
+         verdict="declined"
+         note="I pushed for idle wattage twice. He doesn't own a meter."%}
 {%- endcomment -%}
 
 <div class="edit">
   <div class="edit__head">
+    {%- if include.kind -%}<span class="edit__kind">{{ include.kind }}</span>{%- endif -%}
+    <span class="edit__rule"></span>
     <span class="edit__verdict edit__verdict--{{ include.verdict }}">{{ include.verdict }}</span>
-    <span>Nero · proofread</span>
   </div>
 
   <div class="edit__note">{{ include.note }}</div>
 
-  <div class="edit__line edit__line--before">
-    <span class="edit__marker">−</span>
-    <span>{{ include.before }}</span>
+  {%- if include.before and include.after -%}
+  <div class="edit__diff">
+    <div class="edit__line edit__line--before">
+      <span class="edit__marker">was</span>
+      <span>{{ include.before }}</span>
+    </div>
+    <div class="edit__line edit__line--after">
+      <span class="edit__marker">now</span>
+      <span>{{ include.after }}</span>
+    </div>
   </div>
-
-  <div class="edit__line edit__line--after">
-    <span class="edit__marker">+</span>
-    <span>{{ include.after }}</span>
-  </div>
+  {%- endif -%}
 </div>

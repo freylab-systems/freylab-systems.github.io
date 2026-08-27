@@ -2,7 +2,7 @@
 # NOTE: this file is NOT hot-reloaded. Change it, then restart `bundle exec jekyll serve`.
 
 title: FreyLab.systems
-email: frey.system@gmail.com
+email: frey.systems@gmail.com
 description: >-
   Hands-on infrastructure, self-hosting, and homelab engineering — documented in
   public. Real systems, built on Necropolis, written down honestly: what I built,
@@ -21,6 +21,11 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+
+# Post URLs, pinned to this shape so they never move when a post's categories
+# change. Jekyll's default post permalink prefixes categories to the path,
+# which would put this post under /homelab/ and leave post one under /.
+permalink: /:year/:month/:day/:title:output_ext
 
 # Newest post first on the front page.
 paginate: 10
