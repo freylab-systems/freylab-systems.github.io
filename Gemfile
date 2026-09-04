@@ -16,6 +16,11 @@ gem "minima", "~> 2.5"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
+  # Generates /sitemap.xml, which robots.txt points crawlers at. On the
+  # GitHub Pages legacy build this is a whitelisted plugin, so production
+  # picks it up from _config.yml; it is listed here so local `bundle exec
+  # jekyll build` produces the same output as the deployed site.
+  gem "jekyll-sitemap", "~> 1.4"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem

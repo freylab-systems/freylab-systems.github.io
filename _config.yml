@@ -11,7 +11,13 @@ description: >-
 # baseurl is the subpath the site is served from. Empty because the repo is
 # named freylab-systems.github.io, which serves at the domain root.
 baseurl: ""
-url: "https://freylab-systems.github.io"
+
+# url is the canonical origin of this site and MUST match CNAME
+# (freylab.systems) — not the github.io mirror it is also reachable at.
+# jekyll-seo-tag builds rel="canonical" and og:url from this value, and
+# jekyll-feed builds the feed's <link> from it. Pointing it at github.io
+# told every crawler the mirror was the real site.
+url: "https://freylab.systems"
 
 github_username: freylab-systems
 author: Jake Frey
@@ -21,6 +27,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Post URLs, pinned to this shape so they never move when a post's categories
 # change. Jekyll's default post permalink prefixes categories to the path,

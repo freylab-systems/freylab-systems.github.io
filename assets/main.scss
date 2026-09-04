@@ -210,6 +210,11 @@ h3 { margin-top: $spacing-unit; }
 .post-content {
   img {
     max-width: 100%;
+    // Minima sets no global box-sizing, so without this the 1px border is
+    // added OUTSIDE max-width and a full-width image overhangs its column
+    // by 2px. Scoped rather than global: making .wrapper border-box would
+    // silently narrow the reading measure by 34px on desktop.
+    box-sizing: border-box;
     border: 1px solid $border-color;
     border-radius: $radius;
   }
@@ -279,10 +284,26 @@ pre {
 }
 
 // --- Tables ----------------------------------------------------------------
+// The Necropolis spec table is 7 columns wide and needs ~639px minimum —
+// 246px of which is nothing but cell padding, because Minima derives that
+// padding from $spacing-unit and this file raises $spacing-unit to 34px.
+// A 390px phone gives .wrapper a 356px content box, so the table was
+// running ~283px over and dragging the whole DOCUMENT sideways with it:
+// that was the horizontal scroll on every page of the post.
+//
+// display:block promotes the table itself into the scroll container, so
+// the overflow is contained and swipes horizontally inside the table
+// instead of moving the page. The old `overflow: hidden` here could only
+// clip, never scroll, which is why it did not save us.
 table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
   border-color: $border-color;
   border-radius: $radius;
-  overflow: hidden;
   color: $text-color;
 
   th {
@@ -299,6 +320,14 @@ table {
   td { border-color: $border-color; }
   tr:nth-child(even) { background: rgba(255, 255, 255, 0.025); }
   tr:hover { background: $surface-high; }
+
+  // Less padding on a phone means less distance to swipe. Cuts the spec
+  // table's minimum width by roughly a third on its own.
+  @include media-query($on-palm) {
+    font-size: 15px;
+
+    th, td { padding: 9px 10px; }
+  }
 }
 
 // ===========================================================================
@@ -521,6 +550,7 @@ table {
     width: 100%;
     height: auto;
     margin: 0;
+    box-sizing: border-box; // same reason as .post-content img above
     border: 1px solid $border-color;
     border-radius: $radius;
   }
