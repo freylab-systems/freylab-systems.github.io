@@ -26,7 +26,35 @@
 # "If an 'allow' rule and a 'disallow' rule are equivalent, then the
 # 'allow' rule SHOULD be used."
 
+# --- Content Signals -------------------------------------------------------
+# Vocabulary: draft-romm-aipref-contentsignals (IETF AIPREF).
+# robots.txt syntax: <https://contentsignals.org/>.
+#
+# "Allow: /" only answers "may you fetch this?". Content Signals answer the
+# separate question of what may be DONE with it afterwards, as three
+# independent decisions rather than one. Definitions are the draft's:
+#
+#   search    Building a search index and returning Search Results —
+#             hyperlinks and short excerpts. Explicitly does NOT cover
+#             AI-generated search summaries; that is ai-input.
+#   ai-input  Feeding the content to a model at query time: RAG,
+#             grounding, generative AI search answers.
+#   ai-train  Training or fine-tuning models.
+#
+# All three are yes. This site exists to be found and cited, and the work
+# documented here is worth more read than hoarded — including as training
+# data. Nothing here is gated, so there is nothing to reserve.
+#
+# This is a declaration of preference, not an enforcement mechanism. It
+# states intent in a machine-readable way; it does not compel anyone.
+#
+# Content-Signal is not an RFC 9309 directive. That is fine by the RFC,
+# whose own ABNF anticipates it: "parser implementors: define additional
+# lines you need (for example, Sitemaps)." Conforming crawlers ignore
+# lines they do not recognise.
+
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 Disallow:
 
